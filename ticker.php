@@ -1,6 +1,6 @@
 <?php
 /* Plugin Name: Countdown Ticker
-Author URI: http://ronan-oleary.com/
+Author URI: http://cilabs.com
 Description: Simple countdown ticker plugin
 Version: 1.0
 Author: Ronan O'Leary
@@ -19,7 +19,7 @@ register_activation_hook(__FILE__, 'ticker_activation');
 
 function ticker_deactivation() {
 
-    
+    // Clean dat shit up!
 }
 
 register_deactivation_hook(__FILE__, 'ticker_deactivation');
@@ -106,13 +106,13 @@ function section_one_callback() {
 function title_callback() {
     $settings = (array) get_option( 'ticker_settings' );
     $title = esc_attr( $settings['title'] );
-    echo "<input type='text' name='ticker_settings[title]' value='$title' />";
+    echo "<input type='text' name='ticker_settings[title]' value='$title' placeholder='Enter A title'/>";
 }
 
 function lt_callback() {
     $settings = (array) get_option( 'ticker_settings' );
     $leadtext = esc_attr( $settings['leadtext'] );
-    echo "<input type='text' name='ticker_settings[leadtext]' value='$leadtext' />";
+    echo "<input type='text' name='ticker_settings[leadtext]' value='$leadtext' placeholder='Add lead text'/>";
 }
 
 function date_field() {
@@ -170,7 +170,7 @@ function ticker_shortcode( $atts, $content = null ) {
                 <h3>' . $title . '</h3>
                 <h5>' . $leadtext . '</h5>
                 <p class="lead">
-                    <span class="ticker-plugin"></span>
+                    <span class="ticker"></span>
                 </p>
             </div>';
             
