@@ -169,7 +169,9 @@ function ticker_shortcode( $atts, $content = null ) {
             <div class="ticker-content">
                 <h3>' . $title . '</h3>
                 <h5>' . $leadtext . '</h5>
-                <p class="lead"><span class="ticker-plugin"></span></p>
+                <p class="lead">
+                    <span class="ticker-plugin"></span>
+                </p>
             </div>';
             
         return $output;
