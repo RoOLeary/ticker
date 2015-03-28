@@ -3,12 +3,12 @@ jQuery(document).ready(function(){
 
 		if ((ticker_vars.date) == ''){
 			ticker_vars.date = '2015-12-31';
-			console.log('null' + ticker_vars.date);
+			//console.log(ticker_vars.date);
 		};
 
 		if ((ticker_vars.time) == ''){
 			ticker_vars.time = '23:59';
-			console.log('null' + ticker_vars.date);
+			//console.log(ticker_vars.time);
 		};
 	
 		var targetElements = '.ticker';
