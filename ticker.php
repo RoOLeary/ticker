@@ -165,12 +165,13 @@ function ticker_shortcode( $atts, $content = null ) {
           'date' => $settings['date'],
           ), $atts ) );
      
-        $output .= '<div class="text-block">';
-        $output .= '<h2 class="text-center">' . $title . '</h2>';
-        $output .= '<h4 class="text-center">' . $leadtext . '</h4>';
-        $output .= '<span class="ticker-plugin"></span>';
-        $output .= '</div>';
-        
+        $output .= '
+            <div class="ticker-content">
+                <h3>' . $title . '</h3>
+                <h5>' . $leadtext . '</h5>
+                <p class="lead"><span class="ticker-plugin"></span></p>
+            </div>';
+            
         return $output;
     }
 
