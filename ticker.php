@@ -28,6 +28,7 @@ register_deactivation_hook(__FILE__, 'ticker_deactivation');
 function ticker_scripts() {
     
     // Enqueue script and localise, so as to pass vars in from control panel
+    //wp_enqueue_script( 'plugins', plugin_dir_url( __FILE__ ) . 'js/jquery.plugin.min.js', array(), true );
     //wp_enqueue_script( 'countdown', plugin_dir_url( __FILE__ ) . 'js/jquery.countdown.min.js', array(), true );
 	wp_enqueue_script( 'ticker', plugin_dir_url( __FILE__ ) . 'js/ticker.js', array(), false, true );
     $settings = (array) get_option( 'ticker_settings' );
@@ -35,7 +36,10 @@ function ticker_scripts() {
             'title' => $settings['title'],
             'leadtext' => $settings['leadtext'],
             'date' => $settings['date'],
-            'time' => $settings['time']
+            'time' => $settings['time'],
+            'expirytext' => $settings['expirytext'],
+            'enddate' => $settings['enddate'],
+            'endtime' => $settings['endtime']
         )
     );	
 }
@@ -79,6 +83,7 @@ function ticker_settings() {
 
     // Add a Section (logical grouping of fields)
     add_settings_section( 'section-one', 'Populate Ticker', 'section_one_callback', 'ticker' );
+    add_settings_section( 'section-two', 'Expiry', 'section_two_callback', 'ticker' );
     
         // Add actual fields
         // (name, label, callback (to create field), menu slug, section to be added to)
@@ -86,9 +91,15 @@ function ticker_settings() {
         add_settings_field( 'leadtext', 'Lead Text', 'lt_callback', 'ticker', 'section-one' );
         add_settings_field( 'date', 'Date Field', 'date_field', 'ticker', 'section-one' );
         add_settings_field( 'time', 'Time Field', 'time_field', 'ticker', 'section-one' );
-    
+
+        add_settings_field( 'enddate', 'End Date Field', 'enddate_field', 'ticker', 'section-two' );
+        add_settings_field( 'endtime', 'End Time Field', 'endtime_field', 'ticker', 'section-two' );
+        add_settings_field( 'expirytext', 'Expiry Text', 'exp_callback', 'ticker', 'section-two' );
+
 }
 
+
+        
 
 /*-------------------------------------------------------------------------------------------*/
 /* Callback to output help text below section title */
@@ -98,6 +109,10 @@ function section_one_callback() {
     echo 'Add title, leadtext and select date/time until the expiry time.';
 }
 
+
+function section_two_callback() {
+    echo 'Add Expiry info.';
+}
 
 /*-------------------------------------------------------------------------------------------*/
 /* Callbacks to render the plugin form fields for section one */
@@ -125,6 +140,24 @@ function time_field() {
     $settings = (array) get_option( 'ticker_settings' );
     $time = esc_attr( $settings['time'] );
     echo "<input type='time' name='ticker_settings[time]' value='$time' />";
+}
+
+function exp_callback() {
+    $settings = (array) get_option( 'ticker_settings' );
+    $expirytext = esc_attr( $settings['expirytext'] );
+    echo "<input type='text' name='ticker_settings[expirytext]' value='$expirytext' placeholder='Add Exipry text'/>";
+}
+
+function enddate_field() {
+    $settings = (array) get_option( 'ticker_settings' );
+    $enddate = esc_attr( $settings['enddate'] );
+    echo "<input type='date' name='ticker_settings[enddate]' value='$enddate' />";
+}
+
+function endtime_field() {
+    $settings = (array) get_option( 'ticker_settings' );
+    $endtime = esc_attr( $settings['endtime'] );
+    echo "<input type='time' name='ticker_settings[endtime]' value='$endtime' />";
 }
 
 
